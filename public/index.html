@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedSecure Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-wrap">
+          <div class="brand-mark">M</div>
+          <div>
+            <div class="brand-name">MedSecure</div>
+            <div class="brand-subtitle">Ledger Access</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="overview">Overview</button>
+          <button class="nav-item" data-view="workspace">Doctor Workspace</button>
+          <button class="nav-item" data-view="clinic">Clinic Admin</button>
+          <button class="nav-item" data-view="audit">Audit Logs</button>
+          <button class="nav-item" data-view="faucet">Faucet</button>
+        </nav>
+
+        <div class="side-card">
+          <div class="card-label">Access Control</div>
+          <div class="acl-status">
+            <span class="dot green"></span>
+            ACL Active
+          </div>
+          <div class="acl-value">Smart policy sync: 99.8%</div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <div class="eyebrow">Secure Medical Data Access</div>
+            <h1>Patient-centric Web3 consent management</h1>
+          </div>
+
+          <div class="wallet-box" id="walletBox">
+            <button id="connectWalletBtn" class="wallet-btn">Connect Wallet</button>
+          </div>
+        </header>
+
+        <section class="view active" id="overview">
+          <div class="stats-grid">
+            <div class="metric-card accent">
+              <div class="metric-top">
+                <span>Active Consent</span>
+                <span class="status-pill success">Approved</span>
+              </div>
+              <div class="metric-value">98.7%</div>
+              <div class="metric-meta">Signed and verified by patient wallet</div>
+            </div>
+
+            <div class="metric-card purple">
+              <div class="metric-top">
+                <span>Unread Requests</span>
+                <span class="status-pill warning">3</span>
+              </div>
+              <div class="metric-value">03</div>
+              <div class="metric-meta">New doctor access requests</div>
+            </div>
+
+            <div class="metric-card blue">
+              <div class="metric-top">
+                <span>Secure Files</span>
+                <span class="status-pill info">Encrypted</span>
+              </div>
+              <div class="metric-value">14</div>
+              <div class="metric-meta">IPFS / OrbitDB replicas protected</div>
+            </div>
+          </div>
+
+          <div class="content-grid two-col">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Patient dashboard</h3>
+                <button class="mini-btn secondary" id="consentBtn">Sign Consent</button>
+              </div>
+
+              <div class="profile-card">
+                <div class="avatar big">AW</div>
+                <div>
+                  <div class="patient-name" id="patientName">Ariana Wells</div>
+                  <div class="muted" id="patientMeta">Patient ID PT-2048 · O+ · Age 34</div>
+                </div>
+              </div>
+
+              <div class="info-grid">
+                <div class="info-item">
+                  <span>Medical status</span>
+                  <strong>Stable</strong>
+                </div>
+                <div class="info-item">
+                  <span>Consent scope</span>
+                  <strong>Limited access</strong>
+                </div>
+                <div class="info-item">
+                  <span>Wallet</span>
+                  <strong id="walletText">0x71C4...3A9</strong>
+                </div>
+                <div class="info-item">
+                  <span>Balance</span>
+                  <strong id="walletBalance">128.45 MOCK-ETH</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Access control list</h3>
+                <span class="status-pill success">Live</span>
+              </div>
+
+              <div class="acl-list">
+                <div class="acl-row">
+                  <span>Dr. Marcus Lee</span>
+                  <span class="tag granted">Granted</span>
+                </div>
+                <div class="acl-row">
+                  <span>Clinic Admin</span>
+                  <span class="tag granted">Granted</span>
+                </div>
+                <div class="acl-row">
+                  <span>External Lab Partner</span>
+                  <span class="tag pending">Pending</span>
+                </div>
+                <div class="acl-row">
+                  <span>Insurance Review</span>
+                  <span class="tag revoked">Revoked</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-grid two-col lower-grid">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Medical record vault</h3>
+                <button class="mini-btn" id="requestAccessBtn">Request access</button>
+              </div>
+
+              <div id="recordList" class="record-list"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Decryption simulation</h3>
+                <span class="status-pill warning">Processing</span>
+              </div>
+
+              <div class="decrypt-panel">
+                <div class="encrypt-box">
+                  <div class="lock-label">Encrypted on IPFS</div>
+                  <div class="lock-key">0x0AEE...771D</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="decrypt-box">
+                  <div class="lock-label">Decrypted access</div>
+                  <div class="lock-key bright">thoracic_series_08.dcm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="workspace">
+          <div class="panel wide-panel">
+            <div class="panel-header">
+              <h3>Doctor workspace</h3>
+              <button class="mini-btn primary" id="approveAccessBtn">Approve access</button>
+            </div>
+
+            <div class="workspace-layout">
+              <div class="doctor-profile">
+                <div class="avatar big purple">ML</div>
+                <div>
+                  <div class="doctor-name">Dr. Marcus Lee</div>
+                  <div class="muted">Cardiology specialist · North Harbor Clinic</div>
+                </div>
+              </div>
+
+              <div class="search-box">
+                <input type="text" value="Ariana Wells" aria-label="Patient Search" />
+                <button class="mini-btn secondary">Search patient</button>
+              </div>
+            </div>
+
+            <div class="request-panel">
+              <div class="request-status">
+                <span class="status-pill warning">Access denied</span>
+                <span class="status-text">Request for thoracic X-ray / 09:44 UTC</span>
+              </div>
+
+              <div class="request-body">
+                <div>
+                  <div class="label">Requesting doctor</div>
+                  <strong>Dr. Marcus Lee</strong>
+                </div>
+                <div>
+                  <div class="label">Document</div>
+                  <strong>thoracic_series_08.dcm</strong>
+                </div>
+                <div>
+                  <div class="label">Consent requirement</div>
+                  <strong>Patient signature required</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="clinic">
+          <div class="content-grid two-col">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Clinic administration</h3>
+                <span class="status-pill success">Validated</span>
+              </div>
+
+              <div class="license-list">
+                <div class="license-item">
+                  <span>Doctor credential</span>
+                  <strong>Verified</strong>
+                </div>
+                <div class="license-item">
+                  <span>Board registration</span>
+                  <strong>Active</strong>
+                </div>
+                <div class="license-item">
+                  <span>License ID</span>
+                  <strong>NMC-88412</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Institutional controls</h3>
+                <span class="status-pill info">Managed</span>
+              </div>
+
+              <div class="check-list">
+                <label><input type="checkbox" checked /> Identity check complete</label>
+                <label><input type="checkbox" checked /> Consent validation active</label>
+                <label><input type="checkbox" checked /> HIPAA-style policy sync</label>
+                <label><input type="checkbox" /> Escrow review pending</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="audit">
+          <div class="panel wide-panel">
+            <div class="panel-header">
+              <h3>Audit log</h3>
+              <span class="status-pill info">Immutable log</span>
+            </div>
+
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Actor</th>
+                  <th>Action</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody id="auditTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="view" id="faucet">
+          <div class="content-grid two-col">
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Faucet</h3>
+                <button class="mini-btn primary" id="faucetBtn">Claim mock tokens</button>
+              </div>
+
+              <div class="token-boxes">
+                <div class="token-box">
+                  <div class="token-name">MOCK-ETH</div>
+                  <div class="token-value">5</div>
+                </div>
+                <div class="token-box">
+                  <div class="token-name">MOCK-USDT</div>
+                  <div class="token-value">125</div>
+                </div>
+                <div class="token-box">
+                  <div class="token-name">EDU-COIN</div>
+                  <div class="token-value">500</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <h3>Escrow simulation</h3>
+                <span class="status-pill warning">Locked</span>
+              </div>
+
+              <div class="escrow-box">
+                <div class="escrow-party">
+                  <span>Client</span>
+                  <strong>0.75 ETH</strong>
+                </div>
+                <div class="escrow-party">
+                  <span>Provider</span>
+                  <strong>0.55 ETH</strong>
+                </div>
+                <div class="escrow-party">
+                  <span>Arbitrator</span>
+                  <strong>0.20 ETH</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal hidden" id="walletModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Wallet signature request</h3>
+          <button class="close-btn" id="closeModalBtn">×</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-status pending">Pending</div>
+          <div class="modal-title">Approve patient consent signature</div>
+          <div class="modal-meta">Wallet: 0x71C4...3A9</div>
+          <div class="modal-meta">Network: Sepolia Testnet</div>
+
+          <div class="modal-actions">
+            <button class="mini-btn secondary" id="rejectAction">Reject</button>
+            <button class="mini-btn primary" id="confirmAction">Approve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

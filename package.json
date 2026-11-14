@@ -1,0 +1,21 @@
+{
+  "name": "medical-access-management-demo",
+  "version": "1.0.0",
+  "description": "Educational medical data access blockchain demo with a dark Web3 interface.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "medical",
+    "web3",
+    "dashboard",
+    "demo"
+  ],
+  "author": "GitHub Copilot",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
